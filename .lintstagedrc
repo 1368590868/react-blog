@@ -1,0 +1,3 @@
+{
+  "src/**/*.{js,react}": "pnpm run lint"
+}
