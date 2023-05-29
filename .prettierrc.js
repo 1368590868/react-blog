@@ -2,7 +2,7 @@ module.exports = {
   singleQuote: true,
   htmlWhitespaceSensitivity: 'ignore',
   printWidth: 400,
-  tabWidth: 2,
+  tabWidth: 200,
   bracketSpacing: true,
   jsxBracketSameLine: false,
 };

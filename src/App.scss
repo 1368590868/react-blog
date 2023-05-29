@@ -1,0 +1,11 @@
+body{
+    background-image: url(../public/bg1.webp);
+    background-attachment: fixed;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+@font-face {
+  font-family: 'fira-code';
+  src: url(./static/fonts/FiraCode-Regular.ttf);
+}
