@@ -7,9 +7,11 @@
 
 
     .title {
+        padding: 2rem;
         font-size: 8rem;
--webkit-backdrop-filter: saturate(180%) blur(1.5rem);
-    backdrop-filter: saturate(180%) blur(1.5rem);
+        -webkit-backdrop-filter: saturate(110%) blur(1rem);
+        backdrop-filter: saturate(110%) blur(1rem);
+        text-align: center;
     }
 
     .typewriter h1 {

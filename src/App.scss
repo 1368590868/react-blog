@@ -1,11 +1,23 @@
-body{
-    background-image: url(../public/bg1.webp);
-    background-attachment: fixed;
-    background-position: center 0;
-    background-repeat: no-repeat;
-    background-size: cover;
+body {
+  background-image: url(../public/bg1.webp);
+  background-attachment: fixed;
+  background-position: center 0;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+html {
+  overflow-x: hidden;
+}
+
 @font-face {
   font-family: 'fira-code';
   src: url(./static/fonts/FiraCode-Regular.ttf);
+}
+
+.content {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10vw;
 }

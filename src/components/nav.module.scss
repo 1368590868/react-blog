@@ -1,25 +1,29 @@
-.navbar{
-   display: flex; 
+.navbar {
+   display: flex;
    justify-content: center;
    align-items: center;
    height: 6rem;
-   background: hsla(0,0%,100%,.8);
+   background: hsla(0, 0%, 100%, .8);
    -webkit-backdrop-filter: saturate(180%) blur(2.5rem);
    backdrop-filter: saturate(180%) blur(2.5rem);
 
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 200;
-    max-width: 100vw;
-    overflow: hidden;
-   
-   .logo{
-      flex:0 0 16rem;
+   position: -webkit-sticky;
+   position: sticky;
+   top: 0;
+   left: 0;
+   z-index: 200;
+   width: 100vw;
+   overflow: hidden;
+
+   :global(.ant-menu-root) {
+      background: transparent;
    }
 
-   .setting{
+   .logo {
+      flex: 0 0 16rem;
+   }
+
+   .setting {
       flex: 0 0 8rem;
       font-size: 3.2rem;
    }
