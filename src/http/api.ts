@@ -6,9 +6,14 @@ export interface ArticleList {
   content?: string;
   markdown: string;
   cover_image?: string;
-  read_count: number;
+  read_count: string;
   article_type: string;
   create_time: string;
+}
+
+export interface APIResponse<T> {
+  code: number;
+  data: T;
 }
 
 export class Axios {
@@ -16,12 +21,12 @@ export class Axios {
   //     return request('/article/6218b68caa5c617aba1f5b690', 'get')
   // }
 
-  public static async getArticleList(data: { page: number; pageSize: number }): Promise<{
+  public static async getArticleList(data: { page: number; pageSize: number }): Promise<APIResponse<{
     data: ArticleList[];
     total: number;
     page: number;
     pageSize: number;
-  }> {
+  }>> {
     const response = await request('/getArticleList', 'post', data);
     if (typeof response === 'boolean') {
       throw new Error('Request failed');

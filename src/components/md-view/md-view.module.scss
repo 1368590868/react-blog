@@ -1,0 +1,22 @@
+.md-viewer {
+
+    div,
+    p,
+    li,
+    span {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    li+li {
+        margin-top: 0;
+    }
+}
+
+.medium-zoom-image--opened {
+    z-index: 9999;
+}

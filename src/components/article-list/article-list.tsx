@@ -1,8 +1,9 @@
-import { Avatar, Card, List, Space, message } from 'antd';
+import { Image, Card, List, Space, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Style from './article-list.module.scss';
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import { ArticleList, Axios } from '../http/api';
+import { ArticleList, Axios } from '../../http/api';
+import Link from 'antd/es/typography/Link';
 
 const ArticleList: React.FC = () => {
   const [activeTabKey, setActiveTabKey] = useState('1');
@@ -32,7 +33,9 @@ const ArticleList: React.FC = () => {
   const getArticleList = async (data = { page: 1, pageSize: 5 }) => {
     try {
       const res = await Axios.getArticleList(data);
-      setDataSource(res);
+      if (res.code === 200) {
+        setDataSource(res.data);
+      }
     } catch (error) {
       message.error('获取文章列表失败');
     }
@@ -67,16 +70,21 @@ const ArticleList: React.FC = () => {
           <List.Item
             key={item.title}
             actions={[
-              <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-              <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-              <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+              <Link>
+                <IconText icon={LikeOutlined} text={item.read_count} key="list-vertical-like-o" />
+              </Link>,
+              <Link>
+                <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />
+              </Link>,
             ]}
             extra={
-              <img
-                width={272}
-                alt="logo"
-                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-              />
+              item.cover_image && (
+                <Image
+                  src={item.cover_image}
+                  alt={item.cover_image}
+                  style={{ maxHeight: 200, minWidth: 80 }}
+                />
+              )
             }
           >
             <List.Item.Meta
