@@ -12,7 +12,7 @@ import mediumZoom from '@bytemd/plugin-medium-zoom';
 import 'bytemd/dist/index.css';
 import 'highlight.js/styles/vs.css';
 import 'github-markdown-css/github-markdown-light.css';
-import './md-view.module.scss';
+import Style from './md-view.module.scss';
 
 interface Props {
   value?: string;
@@ -33,26 +33,9 @@ const plugins = [
   mediumZoom(),
 ];
 const MdViewer: FC<Props> = (props) => {
-  const {
-    value = `# 123 
-  ## 3214
-
-  jweiro iwejr ioewo r
-
-  > 123123
-
-  code
-
-  \`\`\`js
-const a = 1+1
-  \`\`\
-
-  
-  `,
-  } = props;
-
+  const { value = '' } = props;
   return (
-    <div className="md-viewer">
+    <div className={Style['md-viewer']}>
       <Viewer value={value} plugins={plugins} />
     </div>
   );

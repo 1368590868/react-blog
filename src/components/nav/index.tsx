@@ -3,55 +3,7 @@ import { Dropdown, MenuProps } from 'antd';
 import { Menu } from 'antd';
 import Styles from './nav.module.scss';
 import { SettingTwoTone } from '@ant-design/icons';
-
-const items: MenuProps['items'] = [
-  {
-    label: '文章',
-    key: 'article',
-  },
-  {
-    label: 'Navigation Two',
-    key: 'app',
-  },
-  {
-    label: 'Navigation Three - Submenu',
-    key: 'SubMenu',
-    children: [
-      {
-        type: 'group',
-        label: 'Item 1',
-        children: [
-          {
-            label: 'Option 1',
-            key: 'setting:1',
-          },
-          {
-            label: 'Option 2',
-            key: 'setting:2',
-          },
-        ],
-      },
-      {
-        type: 'group',
-        label: 'Item 2',
-        children: [
-          {
-            label: 'Option 3',
-            key: 'setting:3',
-          },
-          {
-            label: 'Option 4',
-            key: 'setting:4',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    label: 'Navigation Four',
-    key: 'alipay',
-  },
-];
+import { useNavigate } from 'react-router-dom';
 
 const settingItems: MenuProps['items'] = [
   {
@@ -74,6 +26,59 @@ const Nav: React.FC = () => {
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
   };
+
+  const history = useNavigate();
+  const items: MenuProps['items'] = [
+    {
+      label: '文章',
+      key: 'article',
+      onClick: () => {
+        history('/');
+      },
+    },
+    {
+      label: 'Navigation Two',
+      key: 'app',
+    },
+    {
+      label: 'Navigation Three - Submenu',
+      key: 'SubMenu',
+      children: [
+        {
+          type: 'group',
+          label: 'Item 1',
+          children: [
+            {
+              label: 'Option 1',
+              key: 'setting:1',
+            },
+            {
+              label: 'Option 2',
+              key: 'setting:2',
+            },
+          ],
+        },
+        {
+          type: 'group',
+          label: 'Item 2',
+          children: [
+            {
+              label: 'Option 3',
+              key: 'setting:3',
+            },
+            {
+              label: 'Option 4',
+              key: 'setting:4',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      label: 'Navigation Four',
+      key: 'alipay',
+    },
+  ];
 
   return (
     <header className={Styles['navbar']}>

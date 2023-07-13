@@ -1,0 +1,19 @@
+.footer-wrapper {
+    margin-top: 3rem;
+    font-size: 1.5rem;
+    color: #fff;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height: 9rem;
+
+    -webkit-backdrop-filter: saturate(110%) blur(1rem);
+    backdrop-filter: saturate(110%) blur(1rem);
+    text-align: center;
+
+    a {
+        color: #fff;
+    }
+}

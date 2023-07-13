@@ -6,6 +6,7 @@ import { ArticleList, Axios } from '../../http/api';
 import Link from 'antd/es/typography/Link';
 
 const ArticleList: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [activeTabKey, setActiveTabKey] = useState('1');
   const [dataSource, setDataSource] = useState<{ data: ArticleList[]; total: number }>({
     data: [],
@@ -31,6 +32,7 @@ const ArticleList: React.FC = () => {
   }, []);
 
   const getArticleList = async (data = { page: 1, pageSize: 5 }) => {
+    setLoading(true);
     try {
       const res = await Axios.getArticleList(data);
       if (res.code === 200) {
@@ -38,6 +40,8 @@ const ArticleList: React.FC = () => {
       }
     } catch (error) {
       message.error('获取文章列表失败');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -56,6 +60,7 @@ const ArticleList: React.FC = () => {
       onTabChange={onTabChange}
     >
       <List
+        loading={loading}
         itemLayout="vertical"
         size="large"
         pagination={{
@@ -89,7 +94,7 @@ const ArticleList: React.FC = () => {
           >
             <List.Item.Meta
               // avatar={<Avatar src={item.avatar} />}
-              title={<a href={item.title}>{item.title}</a>}
+              title={<Link href={`/article/${item.id}`}>{item.title}</Link>}
               // description={item.description}
             />
             {item.content}

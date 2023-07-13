@@ -17,10 +17,19 @@ export interface APIResponse<T> {
 }
 
 export class Axios {
-  // public static getArticle() {
-  //     return request('/article/6218b68caa5c617aba1f5b690', 'get')
-  // }
+  /**
+   * 根据id获取文章详情
+   */
+  public static async getArticleById(id: string): Promise<APIResponse<ArticleList>> {
+    const response = await request(`/getArticleDetail/${id}`, 'get', {});
+    if (typeof response === 'boolean') throw new Error('Request failed');
+    return response.data
+  }
 
+  /**
+   * 
+   * @param data | page: number; pageSize: number
+   */
   public static async getArticleList(data: { page: number; pageSize: number }): Promise<APIResponse<{
     data: ArticleList[];
     total: number;
