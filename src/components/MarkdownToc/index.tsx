@@ -1,4 +1,4 @@
-import { Affix, Card } from 'antd';
+import { Affix, Card, FloatButton } from 'antd';
 import React, { useEffect } from 'react';
 // @ts-ignore
 import MarkdownNavbar from './markdown-navbar.jsx';

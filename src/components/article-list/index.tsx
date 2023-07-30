@@ -2,36 +2,64 @@ import { Image, Card, List, Space, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Style from './article-list.module.scss';
 import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import { ArticleList, Axios } from '../../http/api';
+import {
+  ArticleList,
+  ArticleParams,
+  Axios,
+  PAGENATION,
+  TagsList,
+  TagsService,
+} from '../../http/api';
 import Link from 'antd/es/typography/Link';
+import { CardTabListType } from 'antd/es/card';
 
 const ArticleList: React.FC = () => {
   const [loading, setLoading] = useState(false);
-  const [activeTabKey, setActiveTabKey] = useState('1');
+  const [tagList, setTagsList] = useState<CardTabListType[]>([]);
+  const [activeTabKey, setActiveTabKey] = useState<string>('all');
   const [dataSource, setDataSource] = useState<{ data: ArticleList[]; total: number }>({
     data: [],
     total: 0,
   });
 
   const onTabChange = (key: string) => {
+    console.log(key);
     setActiveTabKey(key);
+    getArticleList({
+      ...PAGENATION,
+      tags: key === 'all' ? [] : [key],
+    });
   };
-  const tagList = [
-    {
-      key: '1',
-      tab: '文章',
-    },
-    {
-      key: '2',
-      tab: '笔记',
-    },
-  ];
+
+  const getTagsList = async () => {
+    setLoading(true);
+    try {
+      const res = await TagsService.getTagsList();
+      if (res.code === 200) {
+        const tagTabs: CardTabListType[] = res.data.map((item) => ({
+          key: item.id ?? '',
+          tab: item.name ?? '',
+        }));
+        tagTabs.splice(0, 0, {
+          key: 'all',
+          tab: '全部',
+        });
+        setTagsList(tagTabs);
+        setActiveTabKey(tagTabs[0].key);
+      }
+    } catch (error) {
+      message.error('获取标签列表失败');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   React.useEffect(() => {
     getArticleList();
+    getTagsList();
   }, []);
 
-  const getArticleList = async (data = { page: 1, pageSize: 5 }) => {
+  const getArticleList = async (data: ArticleParams = { page: 1, pageSize: 5, tags: [] }) => {
     setLoading(true);
     try {
       const res = await Axios.getArticleList(data);
@@ -65,10 +93,14 @@ const ArticleList: React.FC = () => {
         size="large"
         pagination={{
           onChange: async (page) => {
-            await getArticleList({ page, pageSize: 5 });
+            await getArticleList({
+              ...PAGENATION,
+              page,
+              tags: activeTabKey === 'all' ? [] : [activeTabKey],
+            });
           },
           total: dataSource.total,
-          pageSize: 5,
+          ...PAGENATION,
         }}
         dataSource={dataSource.data}
         renderItem={(item) => (

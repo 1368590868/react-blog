@@ -329,6 +329,7 @@ export class MarkdownNavbar extends Component {
 
         return (
           <div
+            title={t.text}
             className={cls}
             onClick={(evt) => {
               const currentHash = this.props.declarative

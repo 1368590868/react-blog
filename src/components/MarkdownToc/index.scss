@@ -1,4 +1,12 @@
-$primary-color: #fff;
+$primary-color: #333030;
+
+@mixin textDecoration($fontsize, $color, $paddingLeft) {
+  color: $color;
+  font-size: $fontsize;
+  padding-left: $paddingLeft;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 
 .markdown-navigation {
@@ -11,7 +19,6 @@ $primary-color: #fff;
   max-height: 500px;
   scroll-behavior: smooth;
 
-  text-overflow: ellipsis;
   white-space: nowrap;
 
   &::-webkit-scrollbar {
@@ -54,7 +61,7 @@ $primary-color: #fff;
 
 .markdown-navigation .title-anchor:hover,
 .markdown-navigation .title-anchor.active {
-  background-color: #92f175;
+  background-color: #e1e2e2b7;
   text-decoration: inherit;
 }
 
@@ -67,33 +74,24 @@ $primary-color: #fff;
 }
 
 .markdown-navigation .title-level1 {
-  color: #000;
-  font-size: 16px;
-  padding-left: 0;
+  @include textDecoration(1.6rem, #000, 0)
 }
 
 .markdown-navigation .title-level2 {
-  color: #333;
-  font-size: 15px;
-  padding-left: 16px;
+  @include textDecoration(1.5rem, #333, 1.6rem)
 }
 
 .markdown-navigation .title-level3 {
-  color: #555;
-  font-size: 14.5px;
-  padding-left: 32px;
+  @include textDecoration(1.45rem, #555, 3.2rem)
 }
 
 .markdown-navigation .title-level4 {
-  color: #777;
-  font-size: 14px;
-  padding-left: 48px;
+  @include textDecoration(1.4rem, #777, 4.8rem)
 }
 
 .markdown-navigation .title-level5 {
-  color: #888;
-  font-size: 14px;
-  padding-left: 64px;
+
+  @include textDecoration(1.4rem, #888, 6.4rem)
 }
 
 .markdown-navigation .title-level6 {

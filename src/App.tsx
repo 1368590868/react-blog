@@ -9,6 +9,7 @@ import FullLoading from './components/full-loading';
 import ContentLayout from './components/layout';
 import React from 'react';
 import Article from './page/article';
+import { FloatButton } from 'antd';
 
 // Lazy load Component
 const Home = React.lazy(() => import(/* webpackChunkName: 'Home' */ './page/home'));
@@ -36,6 +37,7 @@ function App() {
           ))}
         </Routes>
         <Footer />
+        <FloatButton.BackTop type="primary" />
       </Suspense>
     </BrowserRouter>
   );
