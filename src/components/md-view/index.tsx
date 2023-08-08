@@ -35,9 +35,9 @@ const plugins = [
 const MdViewer: FC<Props> = (props) => {
   const { value = '' } = props;
   return (
-    <div className={Style['md-viewer']}>
+    <article className={Style['md-viewer']}>
       <Viewer value={value} plugins={plugins} />
-    </div>
+    </article>
   );
 };
 

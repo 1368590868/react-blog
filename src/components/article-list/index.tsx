@@ -110,8 +110,8 @@ const ArticleList: React.FC = () => {
               <Link>
                 <IconText icon={LikeOutlined} text={item.read_count} key="list-vertical-like-o" />
               </Link>,
-              <Link>
-                <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />
+              <Link href={`/article/${item.id}`}>
+                <IconText icon={MessageOutlined} text={item.comments} key="list-vertical-message" />
               </Link>,
             ]}
             extra={

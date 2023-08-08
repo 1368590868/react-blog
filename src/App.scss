@@ -1,5 +1,11 @@
+@mixin bgFilter() {
+  background: var(--background-filter-color);
+  -webkit-backdrop-filter: var(--background-filter);
+  backdrop-filter: var(--background-filter);
+}
+
 body {
-  background-image: url(../public/bg1.webp);
+  background-image: var(--background-image);
   background-attachment: fixed;
   background-position: center 0;
   background-repeat: no-repeat;
@@ -20,4 +26,13 @@ html {
   display: flex;
   justify-content: space-between;
   padding: 0 10vw;
+}
+
+
+.ant-card {
+  @include bgFilter();
+
+  .ant-card-body {
+    padding-right: 0;
+  }
 }
