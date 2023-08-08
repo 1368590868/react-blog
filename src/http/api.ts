@@ -9,6 +9,7 @@ export interface ArticleList {
   read_count: string;
   article_type: string;
   create_time: string;
+  comments: string;
 }
 
 export interface ArticleParams {
@@ -67,6 +68,38 @@ export class TagsService {
   */
   public static async getTagsList(): Promise<APIResponse<TagsList[]>> {
     const response = await request(`/getTag`, 'get', {});
+    if (typeof response === 'boolean') throw new Error('Request failed');
+    return response.data
+  }
+}
+
+export interface CommentList {
+  id?: string;
+  content: string
+  userName: string
+  email: string
+  website?: string
+}
+
+
+export class CommentService {
+  // 添加评论
+  public static async addComment(data: CommentList, id: string): Promise<APIResponse<CommentList>> {
+    const response = await request(`/addComment/${id}`, 'post', data);
+    if (typeof response === 'boolean') throw new Error('Request failed');
+    return response.data
+  }
+
+  // 评论回复
+  public static async addReply(data: CommentList, id: string): Promise<APIResponse<CommentList>> {
+    const response = await request(`/addReply/${id}`, 'post', data);
+    if (typeof response === 'boolean') throw new Error('Request failed');
+    return response.data
+  }
+
+  // 获取评论列表
+  public static async getCommentList(id: string): Promise<APIResponse<CommentList[]>> {
+    const response = await request(`/getCommentList/${id}`, 'get', {});
     if (typeof response === 'boolean') throw new Error('Request failed');
     return response.data
   }
