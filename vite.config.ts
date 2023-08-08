@@ -5,6 +5,13 @@ import commonjs from 'vite-plugin-commonjs'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), commonjs()],
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@public': '/public',
+    }
+  },
+
   css: {
     // 预处理器配置项
     preprocessorOptions: {

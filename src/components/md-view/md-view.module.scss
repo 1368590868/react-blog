@@ -5,9 +5,9 @@ $bg-color: rgba(255, 255, 255, 0.3);
     min-height: 100vh;
     padding: 3rem;
     margin-top: 6rem;
-    background-color: $bg-color;
-    -webkit-backdrop-filter: saturate(110%) blur(1rem);
-    backdrop-filter: saturate(150%) blur(1.5rem);
+    background: var(--background-filter-color);
+    -webkit-backdrop-filter: var(--background-filter);
+    backdrop-filter: var(--background-filter);
 
     :global {
         .markdown-body {

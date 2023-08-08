@@ -1,8 +1,7 @@
 import { BugTwoTone } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import Style from './title-tips.module.scss';
-import { Axios } from '../http/api';
-const getPoem = require('jinrishici');
+import * as getPoem from 'jinrishici';
 
 const TitleTips: React.FC = () => {
   const [poem, setPoem] = useState('');
@@ -18,7 +17,7 @@ const TitleTips: React.FC = () => {
       <div className={Style.title}>
         <div>
           <BugTwoTone />
-          Rune Home
+          林小宅
         </div>
         {poem && (
           <div className={Style.typewriter}>
