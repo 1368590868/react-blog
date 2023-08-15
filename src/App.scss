@@ -10,6 +10,7 @@ body {
   background-position: center 0;
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: 'FiraCode' !important;
 }
 
 html {
@@ -27,6 +28,22 @@ html {
   justify-content: space-between;
   padding: 0 10vw;
 }
+
+@media screen and (max-width: 800px) {
+  .content {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+
+
+    .ant-list-item {
+      flex-flow: column wrap;
+    }
+
+  }
+}
+
+
 
 
 .ant-card {

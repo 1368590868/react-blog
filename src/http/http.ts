@@ -28,5 +28,5 @@ export const request = (url: string, method: Method, requestData?: object) => {
     .catch((error) => {
       message.error(error?.response?.data?.message ?? '网络错误');
       return false;
-    });
+    })
 };

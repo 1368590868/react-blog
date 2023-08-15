@@ -2,12 +2,22 @@
     margin-left: 3rem;
     width: 30rem;
 
+    .side-bar-card {
+        width: 300px;
+    }
+
     :global {
         .ant-card {
             &:hover {
                 transform: scale(1.1);
                 transition: all 0.3s ease-in-out;
             }
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        & {
+            display: none;
         }
     }
 }

@@ -8,11 +8,11 @@ import TitleTips from './components/title-tips';
 import FullLoading from './components/full-loading';
 import ContentLayout from './components/layout';
 import React from 'react';
-import Article from './page/article';
 import { FloatButton } from 'antd';
 
 // Lazy load Component
 const Home = React.lazy(() => import(/* webpackChunkName: 'Home' */ './page/home'));
+const Article = React.lazy(() => import(/* webpackChunkName: 'Article' */ './page/article'));
 const Footer = React.lazy(() => import(/* webpackChunkName: 'Footer' */ './components/footer'));
 
 function App() {

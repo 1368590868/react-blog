@@ -22,7 +22,8 @@ const validateMessages = {
 };
 
 interface Props {
-  isReply: boolean;
+  isCommentId?: string;
+  closeReply?: () => void;
 }
 
 const CommentForm: React.FC<Props> = (props) => {
@@ -31,7 +32,7 @@ const CommentForm: React.FC<Props> = (props) => {
   const [loading, setLoading] = React.useState(false);
 
   const [form] = useForm();
-  const { isReply = false } = props;
+  const { isCommentId = '', closeReply } = props;
 
   const handleChangeBefore = (value: string) => {
     setBefore(value);
@@ -46,11 +47,17 @@ const CommentForm: React.FC<Props> = (props) => {
       if (!id) {
         throw new Error('id is required');
       }
-      const res = await CommentService[isReply ? 'addComment' : 'addReply'](values, id);
+      const res = await CommentService[!!isCommentId ? 'addReply' : 'addComment'](
+        values,
+        !isCommentId ? id : isCommentId,
+      );
       if (res.code === 200) {
         const { content, ...infoList } = values;
         localStorage.setItem('userInfo', JSON.stringify(infoList));
         message.success('评论成功');
+        form.resetFields(['content']);
+
+        closeReply && closeReply();
       }
     } catch (error) {
       console.log(error);
@@ -97,11 +104,16 @@ const CommentForm: React.FC<Props> = (props) => {
       >
         <Input placeholder="不会公开您的邮箱" />
       </Form.Item>
-      <Form.Item name={'website'} tooltip="自动加入友联哟！" label="个人网页">
+      <Form.Item name={'website'} tooltip="自动加入友链哟！" label="个人网页">
         <Input addonBefore={selectBefore} placeholder="填写后自动加入友链哟~" />
       </Form.Item>
       <Form.Item name={'content'} label="评论内容" rules={[{ required: true }]}>
-        <Input.TextArea rows={5} placeholder="请输入友善评论~" />
+        <Input.TextArea
+          autoSize={{ minRows: 5, maxRows: 7 }}
+          maxLength={150}
+          showCount
+          placeholder="请输入友善评论~"
+        />
       </Form.Item>
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 11 }}>
         <Button type="primary" htmlType="submit" disabled={loading} loading={loading}>

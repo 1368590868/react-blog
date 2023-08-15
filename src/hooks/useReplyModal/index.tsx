@@ -1,11 +1,12 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
-import CommentForm from '../commentForm';
+import CommentForm from '../../components/commentForm';
 import ReactDOM from 'react-dom';
+import { CommentList } from '../../http/api';
 
 interface Props {
   title?: string;
-  isReply?: boolean;
+  rows?: CommentList;
 }
 
 const useReplyModal = () => {
@@ -19,20 +20,20 @@ const useReplyModal = () => {
     setVisible(false);
   };
 
-  const handleOk = () => {
-    setVisible(false);
-  };
-
-  const handleCancel = () => {
-    setVisible(false);
-  };
-
   const ReplyForm = useCallback(
     (props: Props) => {
-      const { title = '回复列表', isReply = false } = props;
+      const { rows } = props;
+
+      const handleOk = () => {
+        setVisible(false);
+      };
+
+      const handleCancel = () => {
+        setVisible(false);
+      };
       return ReactDOM.createPortal(
         <Modal
-          title={title}
+          title={`回复@${rows?.userName}`}
           open={visible}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -40,7 +41,7 @@ const useReplyModal = () => {
           destroyOnClose={true}
           footer={null}
         >
-          <CommentForm isReply={isReply} />
+          <CommentForm isCommentId={rows?.id} closeReply={closeReply} />
         </Modal>,
         document.body,
       );
@@ -51,6 +52,8 @@ const useReplyModal = () => {
   return {
     ReplyForm,
     showReply,
+    closeReply,
+    visible,
   };
 };
 

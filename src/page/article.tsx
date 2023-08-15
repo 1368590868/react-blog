@@ -1,7 +1,7 @@
 import React from 'react';
 import ContentLayout from '../components/layout';
 import MdViewer from '../components/md-view';
-import { Divider, message } from 'antd';
+import { Divider, Space, Tag, message } from 'antd';
 import { useParams } from 'react-router-dom';
 import { ArticleList, Axios } from '../http/api';
 import MarkdownToc from '../components/MarkdownToc';
@@ -31,13 +31,35 @@ const Article = () => {
   return (
     <ContentLayout>
       <article>
+        <div className={Styles['article-wrap']}>
+          <div className={Styles['article-title']}> {article?.title}</div>
+          <div className={Styles['article-desc']}>
+            <Space size={[0, 8]} wrap>
+              {article &&
+                article.tags.map((tag) => (
+                  <Tag color={tag.color} key={tag.id}>
+                    {tag.name}
+                  </Tag>
+                ))}
+            </Space>
+          </div>
+
+          <div className={Styles['article-bottom']}>
+            <span>
+              更新日期： {(window as any).dayjs(article?.createTime).format('YYYY-MM-DD HH:mm:ss')}
+            </span>
+            <span>阅读数： {article?.read_count}</span>
+          </div>
+        </div>
+
         <MdViewer value={article?.markdown}></MdViewer>
+
         <section className={Styles['comment-list']}>
           <Divider style={{ marginTop: 30 }}>我要发表看法</Divider>
           <div style={{ width: '45vw', margin: 'auto' }}>
-            <CommentForm isReply={false}></CommentForm>
+            <CommentForm></CommentForm>
           </div>
-          <CommentList></CommentList>
+          <CommentList />
         </section>
       </article>
       <MarkdownToc article={article}></MarkdownToc>

@@ -2,4 +2,39 @@
     background: var(--background-filter-color);
     -webkit-backdrop-filter: var(--background-filter);
     backdrop-filter: var(--background-filter);
+
+    padding: 3rem;
+    margin-top: var(--gap);
+}
+
+.article-wrap {
+    padding: 3rem;
+    padding-bottom: 0;
+    margin-top: 6rem;
+    margin-bottom: -6rem;
+
+    background: var(--background-filter-color);
+    -webkit-backdrop-filter: var(--background-filter);
+    backdrop-filter: var(--background-filter);
+
+    .article-title {
+        font-size: 3rem;
+    }
+
+    .article-desc {
+        margin-top: var(--small-gap);
+        display: flex;
+        flex-flow: column wrap;
+
+
+    }
+
+    .article-bottom {
+        margin-top: var(--small-gap);
+        display: flex;
+        flex-flow: row wrap;
+        gap: var(--small-gap);
+    }
+
+
 }

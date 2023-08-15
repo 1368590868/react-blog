@@ -37,46 +37,18 @@ const Nav: React.FC = () => {
       },
     },
     {
-      label: 'Navigation Two',
+      label: 'Nuxt Blog',
       key: 'app',
+      onClick: () => {
+        window.open('https://irlin.cn', '_blank');
+      },
     },
     {
-      label: 'Navigation Three - Submenu',
-      key: 'SubMenu',
-      children: [
-        {
-          type: 'group',
-          label: 'Item 1',
-          children: [
-            {
-              label: 'Option 1',
-              key: 'setting:1',
-            },
-            {
-              label: 'Option 2',
-              key: 'setting:2',
-            },
-          ],
-        },
-        {
-          type: 'group',
-          label: 'Item 2',
-          children: [
-            {
-              label: 'Option 3',
-              key: 'setting:3',
-            },
-            {
-              label: 'Option 4',
-              key: 'setting:4',
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: 'Navigation Four',
-      key: 'alipay',
+      label: '添加友链',
+      key: 'callMe',
+      onClick: () => {
+        // window.open('https://vue.irlin.cn', '_blank');
+      },
     },
   ];
 

@@ -84,7 +84,7 @@ const ArticleList: React.FC = () => {
       className={Style['article-list']}
       tabList={tagList}
       activeTabKey={activeTabKey}
-      tabBarExtraContent={<a href="#">More</a>}
+      tabBarExtraContent={<></>}
       onTabChange={onTabChange}
     >
       <List

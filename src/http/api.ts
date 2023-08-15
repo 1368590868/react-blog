@@ -8,8 +8,9 @@ export interface ArticleList {
   cover_image?: string;
   read_count: string;
   article_type: string;
-  create_time: string;
+  createTime: string;
   comments: string;
+  tags: TagsList[]
 }
 
 export interface ArticleParams {
@@ -79,6 +80,8 @@ export interface CommentList {
   userName: string
   email: string
   website?: string
+  createTime?: string
+  replys?: CommentList[]
 }
 
 
@@ -100,6 +103,24 @@ export class CommentService {
   // 获取评论列表
   public static async getCommentList(id: string): Promise<APIResponse<CommentList[]>> {
     const response = await request(`/getCommentList/${id}`, 'get', {});
+    if (typeof response === 'boolean') throw new Error('Request failed');
+    return response.data
+  }
+}
+
+
+export class ReplyService {
+
+  // 评论回复
+  public static async addReply(data: CommentList, id: string): Promise<APIResponse<CommentList>> {
+    const response = await request(`/addReply/${id}`, 'post', data);
+    if (typeof response === 'boolean') throw new Error('Request failed');
+    return response.data
+  }
+
+  // 获取评论列表
+  public static async getReplyList(id: string): Promise<APIResponse<CommentList[]>> {
+    const response = await request(`/getReplyList/${id}`, 'get', {});
     if (typeof response === 'boolean') throw new Error('Request failed');
     return response.data
   }

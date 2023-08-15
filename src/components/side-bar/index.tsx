@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Style from './side-bar.module.scss';
-import { Affix, Avatar, Button, Card, Descriptions, Popover, QRCode } from 'antd';
+import { Affix, Avatar, Button, Card, Descriptions, Image, Popover, QRCode } from 'antd';
 import { SettingOutlined, EditOutlined, EllipsisOutlined, QrcodeOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
@@ -9,9 +9,9 @@ const SideBar: React.FC = () => {
   return (
     <aside className={Style['side-bar']}>
       <Card
-        style={{ width: 300 }}
+        className={Style['side-bar-card']}
         cover={
-          <img
+          <Image
             alt="mumu"
             src="http://cdn.irlin.cn/2c1e3db0-fef7-11ed-b7de-c1fb1f2a889f.webp-ImgAutoSmall"
           />
@@ -34,7 +34,7 @@ const SideBar: React.FC = () => {
           description="欢迎来到我的小站"
         />
       </Card>
-      <Card title="文章信息" style={{ marginTop: '3rem' }}>
+      <Card className={Style['side-bar-card']} title="文章信息" style={{ marginTop: '3rem' }}>
         <Descriptions column={1} labelStyle={{ width: 60 }}>
           <Descriptions.Item label="分类">123132</Descriptions.Item>
           <Descriptions.Item label="标签">1233123</Descriptions.Item>
