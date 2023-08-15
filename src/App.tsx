@@ -1,12 +1,8 @@
 import { Suspense } from 'react';
 import './App.scss';
-import { Route, HashRouter, Routes, BrowserRouter } from 'react-router-dom';
-import ArticleList from './components/article-list';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Nav from './components/nav';
-import SideBar from './components/side-bar';
-import TitleTips from './components/title-tips';
 import FullLoading from './components/full-loading';
-import ContentLayout from './components/layout';
 import React from 'react';
 import { FloatButton } from 'antd';
 

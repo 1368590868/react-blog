@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Modal } from 'antd';
+import React, { useCallback } from 'react';
+import { Modal } from 'antd';
 import CommentForm from '../../components/commentForm';
 import ReactDOM from 'react-dom';
 import { CommentList } from '../../http/api';

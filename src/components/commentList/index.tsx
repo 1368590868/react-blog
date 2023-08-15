@@ -1,16 +1,10 @@
-import { Avatar, Button, Divider, List, Radio, Row, Space } from 'antd';
+import { Avatar, Button, Divider, List } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { CommentList, CommentService } from '../../http/api';
 import { useParams } from 'react-router-dom';
 import useReplyModal from '../../hooks/useReplyModal';
 
-type PaginationPosition = 'top' | 'bottom' | 'both';
-
-type PaginationAlign = 'start' | 'center' | 'end';
-
 const CommentList: React.FC = () => {
-  const [position, setPosition] = useState<PaginationPosition>('bottom');
-  const [align, setAlign] = useState<PaginationAlign>('center');
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSrouce] = useState<CommentList[]>([]);
   const [rows, setRows] = useState<CommentList>();
@@ -68,6 +62,7 @@ const CommentList: React.FC = () => {
           size="small"
           bordered={true}
           pagination={false}
+          loading={loading}
           dataSource={row.replys}
           style={{ whiteSpace: 'pre-line' }}
           renderItem={(item) => (

@@ -1,15 +1,8 @@
 import { Image, Card, List, Space, message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Style from './article-list.module.scss';
-import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import {
-  ArticleList,
-  ArticleParams,
-  Axios,
-  PAGENATION,
-  TagsList,
-  TagsService,
-} from '../../http/api';
+import { LikeOutlined, MessageOutlined } from '@ant-design/icons';
+import { ArticleList, ArticleParams, Axios, PAGENATION, TagsService } from '../../http/api';
 import Link from 'antd/es/typography/Link';
 import { CardTabListType } from 'antd/es/card';
 

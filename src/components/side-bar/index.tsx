@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Style from './side-bar.module.scss';
-import { Affix, Avatar, Button, Card, Descriptions, Image, Popover, QRCode } from 'antd';
-import { SettingOutlined, EditOutlined, EllipsisOutlined, QrcodeOutlined } from '@ant-design/icons';
+import { Avatar, Card, Descriptions, Image, Popover, QRCode } from 'antd';
+import { EditOutlined, EllipsisOutlined, QrcodeOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 

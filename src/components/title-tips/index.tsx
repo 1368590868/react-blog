@@ -1,4 +1,3 @@
-import { BugTwoTone } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import Style from './title-tips.module.scss';
 import * as getPoem from 'jinrishici';
