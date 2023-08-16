@@ -42,7 +42,7 @@ const MarkdownToc: React.FC<Props> = (props) => {
     const headerRegex = /^#{1,4} +/m;
     const hasHeader = headerRegex.test(article.markdown);
     return hasHeader ? (
-      <Affix offsetTop={120} style={{ marginLeft: '3rem', width: '30rem' }}>
+      <Affix offsetTop={120} className="fiexd-toc" style={{ marginLeft: '3rem', width: '30rem' }}>
         <Card title="目录" className="toc-card" bordered={false}>
           <MarkdownNavbar source={article.markdown} ordered={false} maxDepth={4} />
         </Card>

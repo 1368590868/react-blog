@@ -29,6 +29,10 @@ $bg-color: rgba(255, 255, 255, 0.3);
     li+li {
         margin-top: 0;
     }
+
+    @media screen and (max-width: 800px) {
+        width: 100vw;
+    }
 }
 
 .medium-zoom-image--opened {

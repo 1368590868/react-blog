@@ -19,6 +19,7 @@
         #root {
           background-repeat: no-repeat;
           background-size: 100% auto;
+          background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
         }
 
         .loading-title {

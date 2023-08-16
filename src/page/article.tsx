@@ -56,7 +56,7 @@ const Article = () => {
 
         <section className={Styles['comment-list']}>
           <Divider style={{ marginTop: 30 }}>我要发表看法</Divider>
-          <div style={{ width: '45vw', margin: 'auto' }}>
+          <div className={Styles['comment-form']}>
             <CommentForm></CommentForm>
           </div>
           <CommentList />

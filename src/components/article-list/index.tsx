@@ -16,7 +16,6 @@ const ArticleList: React.FC = () => {
   });
 
   const onTabChange = (key: string) => {
-    console.log(key);
     setActiveTabKey(key);
     getArticleList({
       ...PAGENATION,
@@ -52,6 +51,20 @@ const ArticleList: React.FC = () => {
     getTagsList();
   }, []);
 
+  // 获取视窗宽度，改变list itemLayout
+  const [itemLayout, setItemLayout] = useState<'vertical' | 'horizontal'>('vertical');
+  React.useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 800) {
+        setItemLayout('horizontal');
+      } else {
+        setItemLayout('vertical');
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const getArticleList = async (data: ArticleParams = { page: 1, pageSize: 5, tags: [] }) => {
     setLoading(true);
     try {
@@ -82,7 +95,7 @@ const ArticleList: React.FC = () => {
     >
       <List
         loading={loading}
-        itemLayout="vertical"
+        itemLayout={itemLayout}
         size="large"
         pagination={{
           onChange: async (page) => {

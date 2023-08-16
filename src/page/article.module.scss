@@ -5,7 +5,17 @@
 
     padding: 3rem;
     margin-top: var(--gap);
+
+    .comment-form {
+        width: 45vw;
+        margin: auto;
+    }
+
+
+
 }
+
+
 
 .article-wrap {
     padding: 3rem;
@@ -36,5 +46,20 @@
         gap: var(--small-gap);
     }
 
+
+}
+
+@media screen and (max-width: 800px) {
+    .comment-list {
+        width: 100%;
+
+        .comment-form {
+            width: 100%;
+        }
+    }
+
+    .article-wrap {
+        width: 100vw;
+    }
 
 }
