@@ -1,5 +1,17 @@
 .article-list {
     width: 65vw;
+
+    .article-bottom {
+        display: flex;
+        flex-flow: row wrap;
+        gap: var(--small-gap);
+        font-family: 'FiraCode' !important;
+        font-size: 1rem;
+    }
+
+    .article-tag {
+        margin-bottom: var(--small-gap);
+    }
 }
 
 @media screen and (max-width: 800px) {

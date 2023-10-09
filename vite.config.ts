@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import commonjs from 'vite-plugin-commonjs'
-import viteCompression from 'vite-plugin-compression'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import commonjs from 'vite-plugin-commonjs';
+import viteCompression from 'vite-plugin-compression';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,7 +10,7 @@ export default defineConfig({
     alias: {
       '@': '/src',
       '@public': '/public',
-    }
+    },
   },
 
   css: {
@@ -18,7 +18,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         javascriptEnabled: true,
-        math: "always",
+        math: 'always',
       },
     },
   },
@@ -27,8 +27,8 @@ export default defineConfig({
       '/api': {
         target: 'https://irlin.cn/api',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  }
-})
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
+});

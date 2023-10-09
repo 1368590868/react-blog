@@ -21,6 +21,10 @@ function App() {
       path: '/article/:id',
       component: Article,
     },
+    {
+      path: '*',
+      component: Home,
+    },
   ];
 
   return (
@@ -28,8 +32,8 @@ function App() {
       <Suspense fallback={<FullLoading />}>
         <Nav />
         <Routes>
-          {routers.map((route, index) => (
-            <Route key={index} path={route.path} element={<route.component />} />
+          {routers.map((route) => (
+            <Route key={route.path} path={route.path} element={<route.component />} />
           ))}
         </Routes>
         <Footer />

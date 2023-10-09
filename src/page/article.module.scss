@@ -16,38 +16,45 @@
 }
 
 
+article {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
 
-.article-wrap {
-    padding: 3rem;
-    padding-bottom: 0;
-    margin-top: 6rem;
-    margin-bottom: -6rem;
+    .article-wrap {
+        padding: 3rem;
+        padding-bottom: 0;
+        margin-top: 6rem;
+        margin-bottom: -6rem;
 
-    background: var(--background-filter-color);
-    -webkit-backdrop-filter: var(--background-filter);
-    backdrop-filter: var(--background-filter);
+        background: var(--background-filter-color);
+        -webkit-backdrop-filter: var(--background-filter);
+        backdrop-filter: var(--background-filter);
 
-    .article-title {
-        font-size: 3rem;
+        .article-title {
+            font-size: 3rem;
+        }
+
+        .article-desc {
+            margin-top: var(--small-gap);
+            display: flex;
+            flex-flow: column wrap;
+
+
+        }
+
+        .article-bottom {
+            margin-top: var(--small-gap);
+            display: flex;
+            flex-flow: row wrap;
+            gap: var(--small-gap);
+        }
+
+
     }
-
-    .article-desc {
-        margin-top: var(--small-gap);
-        display: flex;
-        flex-flow: column wrap;
-
-
-    }
-
-    .article-bottom {
-        margin-top: var(--small-gap);
-        display: flex;
-        flex-flow: row wrap;
-        gap: var(--small-gap);
-    }
-
-
 }
+
+
 
 @media screen and (max-width: 800px) {
     .comment-list {

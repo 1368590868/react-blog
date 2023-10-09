@@ -10,7 +10,7 @@ import mermaid from '@bytemd/plugin-mermaid';
 import mermaidLocale from '@bytemd/plugin-mermaid/locales/zh_Hans.json';
 import mediumZoom from '@bytemd/plugin-medium-zoom';
 import 'bytemd/dist/index.css';
-import 'highlight.js/styles/vs.css';
+import 'highlight.js/styles/school-book.css';
 import 'github-markdown-css/github-markdown-light.css';
 import Style from './md-view.module.scss';
 

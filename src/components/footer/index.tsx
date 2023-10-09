@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import Style from './footer.module.scss';
+import gongan from '@/assets/gongan.webp';
 
 const Footer: FC = () => {
   return (
@@ -19,7 +20,7 @@ const Footer: FC = () => {
             textDecoration: 'none',
           }}
         >
-          <img src="../../../public/gongan.webp" alt="公安" />
+          <img src={gongan} alt="公安" />
           渝公网安备 50024102500401号
         </a>
       </span>

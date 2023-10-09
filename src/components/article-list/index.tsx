@@ -1,26 +1,33 @@
-import { Image, Card, List, Space, message } from 'antd';
+import { Image, Card, List, Space, message, Typography, Tag, Skeleton, Divider } from 'antd';
 import React, { useState } from 'react';
 import Style from './article-list.module.scss';
 import { LikeOutlined, MessageOutlined } from '@ant-design/icons';
 import { ArticleList, ArticleParams, Axios, PAGENATION, TagsService } from '../../http/api';
 import Link from 'antd/es/typography/Link';
 import { CardTabListType } from 'antd/es/card';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { set } from 'lodash';
 
 const ArticleList: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [tagList, setTagsList] = useState<CardTabListType[]>([]);
   const [activeTabKey, setActiveTabKey] = useState<string>('all');
+  const [isMore, setIsMore] = useState(true);
   const [dataSource, setDataSource] = useState<{ data: ArticleList[]; total: number }>({
     data: [],
     total: 0,
   });
+  const [page, setPage] = useState<number>(1);
+  const [tags, setTags] = useState<string[]>([]);
+  const [list, setList] = useState<ArticleList[]>([]);
 
   const onTabChange = (key: string) => {
     setActiveTabKey(key);
-    getArticleList({
-      ...PAGENATION,
-      tags: key === 'all' ? [] : [key],
-    });
+    setList([]);
+    setPage(1);
+    setTags(key === 'all' ? [] : [key]);
+    setIsMore(true);
+    getArticleList({ ...PAGENATION, tags: key === 'all' ? [] : [key] });
   };
 
   const getTagsList = async () => {
@@ -56,27 +63,45 @@ const ArticleList: React.FC = () => {
   React.useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 800) {
-        setItemLayout('horizontal');
-      } else {
         setItemLayout('vertical');
+      } else {
+        setItemLayout('horizontal');
       }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const getArticleList = async (data: ArticleParams = { page: 1, pageSize: 5, tags: [] }) => {
+  const getArticleList = async (data: ArticleParams = { page, pageSize: 5, tags }) => {
     setLoading(true);
     try {
       const res = await Axios.getArticleList(data);
       if (res.code === 200) {
+        setList((prevList) => {
+          if (prevList.length >= res.data.total) {
+            setIsMore(false);
+          } else {
+            setPage((prevPage) => prevPage + 1);
+          }
+          return [...prevList, ...res.data.data];
+        });
         setDataSource(res.data);
+
+        setIsMore(res.data.total !== 0);
       }
     } catch (error) {
       message.error('获取文章列表失败');
     } finally {
       setLoading(false);
     }
+  };
+
+  /** 滚动的加载更多 */
+  const loadMoreData = () => {
+    if (loading) {
+      return;
+    }
+    getArticleList();
   };
 
   const IconText = ({ icon, text }: { icon: React.FC; text: string }) => (
@@ -93,52 +118,100 @@ const ArticleList: React.FC = () => {
       tabBarExtraContent={<></>}
       onTabChange={onTabChange}
     >
-      <List
-        loading={loading}
-        itemLayout={itemLayout}
-        size="large"
-        pagination={{
-          onChange: async (page) => {
-            await getArticleList({
-              ...PAGENATION,
-              page,
-              tags: activeTabKey === 'all' ? [] : [activeTabKey],
-            });
-          },
-          total: dataSource.total,
-          ...PAGENATION,
-        }}
-        dataSource={dataSource.data}
-        renderItem={(item) => (
-          <List.Item
-            key={item.title}
-            actions={[
-              <Link>
-                <IconText icon={LikeOutlined} text={item.read_count} key="list-vertical-like-o" />
-              </Link>,
-              <Link href={`/article/${item.id}`}>
-                <IconText icon={MessageOutlined} text={item.comments} key="list-vertical-message" />
-              </Link>,
-            ]}
-            extra={
-              item.cover_image && (
+      <InfiniteScroll
+        dataLength={list.length}
+        next={loadMoreData}
+        hasMore={list.length % 5 === 0 && isMore}
+        loader={
+          <Card>
+            <Skeleton active />
+          </Card>
+        }
+        endMessage={<Divider plain>人生若只如初见，何事秋风悲画扇~ 🥱</Divider>}
+      >
+        <List
+          loading={loading}
+          itemLayout={'vertical'}
+          size="large"
+          // pagination={{
+          //   onChange: async (page) => {
+          //     await getArticleList({
+          //       ...PAGENATION,
+          //       page,
+          //       tags: activeTabKey === 'all' ? [] : [activeTabKey],
+          //     });
+          //   },
+          //   total: dataSource.total,
+          //   ...PAGENATION,
+          // }}
+          dataSource={list}
+          renderItem={(item) => (
+            <List.Item
+              key={item.title}
+              actions={[
+                <Link>
+                  <IconText icon={LikeOutlined} text={item.read_count} key="list-vertical-like-o" />
+                </Link>,
+                <Link href={`/article/${item.id}`}>
+                  <IconText
+                    icon={MessageOutlined}
+                    text={item.comments}
+                    key="list-vertical-message"
+                  />
+                </Link>,
+              ]}
+              extra={
+                itemLayout === 'horizontal' &&
+                item.cover_image && (
+                  <Image
+                    src={item.cover_image}
+                    alt={item.cover_image}
+                    style={{ maxHeight: 200, minWidth: 80 }}
+                  />
+                )
+              }
+            >
+              <List.Item.Meta
+                // avatar={<Avatar src={item.avatar} />}
+                title={
+                  <Link href={`/article/${item.id}`} target="__blank" style={{ fontSize: 16 }}>
+                    {item.title}
+                  </Link>
+                }
+                description={
+                  <div className={Style['article-bottom']}>
+                    <span>
+                      更新日期：{' '}
+                      {(window as any).dayjs(item.createTime).format('YYYY-MM-DD HH:mm:ss')}
+                    </span>
+                    <span>阅读数： {item.read_count}</span>
+                  </div>
+                }
+              />
+
+              <Space size={[8, 16]} wrap className={Style['article-tag']}>
+                {item.tags.map((tag) => (
+                  <Tag color={tag.color} key={tag.id}>
+                    {tag.name}
+                  </Tag>
+                ))}
+              </Space>
+
+              <Link href={`/article/${item.id}`} target="__blank">
+                <Typography.Paragraph className="post-title">{item.content}</Typography.Paragraph>
+              </Link>
+
+              {itemLayout === 'vertical' && item.cover_image && (
                 <Image
                   src={item.cover_image}
                   alt={item.cover_image}
                   style={{ maxHeight: 200, minWidth: 80 }}
                 />
-              )
-            }
-          >
-            <List.Item.Meta
-              // avatar={<Avatar src={item.avatar} />}
-              title={<Link href={`/article/${item.id}`}>{item.title}</Link>}
-              // description={item.description}
-            />
-            {item.content}
-          </List.Item>
-        )}
-      />
+              )}
+            </List.Item>
+          )}
+        />
+      </InfiniteScroll>
     </Card>
   );
 };
