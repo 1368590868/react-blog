@@ -126,6 +126,38 @@ const SideBar: React.FC = () => {
           </Descriptions.Item>
         </Descriptions>
       </Card>
+
+      <Card
+        className={Style['side-bar-card']}
+        title=""
+        style={{ marginTop: '3rem' }}
+        ref={luckyBoxRef}
+      >
+        <Descriptions column={1} labelStyle={{ width: 100 }}>
+          <Descriptions.Item label="备案号">
+            <a href="https://beian.miit.gov.cn" target="_blank">
+              渝ICP备2023013929号
+            </a>
+          </Descriptions.Item>
+          <Descriptions.Item label="渝公网备">
+            <a
+              target="_blank"
+              href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50024102500401"
+              style={{
+                display: 'inline-block',
+                textDecoration: 'none',
+              }}
+            >
+              50024102500401号
+            </a>
+          </Descriptions.Item>
+          <Descriptions.Item>
+            <span style={{ fontSize: 12 }}>
+              CopyRight © 2023 - 2520 - 木木 - ALL RIGHTS RESERVED
+            </span>
+          </Descriptions.Item>
+        </Descriptions>
+      </Card>
     </aside>
   );
 };
