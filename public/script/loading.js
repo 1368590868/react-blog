@@ -5,7 +5,7 @@
 (function () {
   const _root = document.querySelector('#root');
 
-  if (_root && _root.innerHTML === '' && sessionStorage.getItem('firstLoad') !== 'true') {
+  if (_root && _root.innerHTML === '') {
     sessionStorage.setItem('firstLoad', true);
     _root.innerHTML = `
       <style>
@@ -38,7 +38,7 @@
           justify-content: center;
           padding: 26px;
         }
-       
+
       </style>
 
       <div style="

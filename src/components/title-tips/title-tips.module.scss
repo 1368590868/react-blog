@@ -15,7 +15,7 @@
 
 
     .header {
-        padding: var(--gap);
+        box-sizing: border-box;
         -webkit-backdrop-filter: saturate(110%) blur(1rem);
         backdrop-filter: saturate(110%) blur(1rem);
         text-align: center;
@@ -25,6 +25,7 @@
 
 
         .title {
+            line-height: 5rem;
             font-size: 5rem;
             @extend %text-gradation;
         }
@@ -32,7 +33,7 @@
 
     .typewriter {
         width: fit-content;
-        margin: auto;
+        margin: 0 auto;
 
         h1 {
             @extend %text-gradation;
@@ -91,7 +92,6 @@
 
             h1 {
                 font-size: 2rem;
-                margin-top: calc(2 * var(--gap));
             }
         }
 
