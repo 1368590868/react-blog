@@ -6,17 +6,13 @@ import { ArticleList, ArticleParams, Axios, PAGENATION, TagsService } from '../.
 import Link from 'antd/es/typography/Link';
 import { CardTabListType } from 'antd/es/card';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { set } from 'lodash';
+import { uniqBy } from 'lodash';
 
 const ArticleList: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [tagList, setTagsList] = useState<CardTabListType[]>([]);
   const [activeTabKey, setActiveTabKey] = useState<string>('all');
   const [isMore, setIsMore] = useState(true);
-  const [dataSource, setDataSource] = useState<{ data: ArticleList[]; total: number }>({
-    data: [],
-    total: 0,
-  });
   const [page, setPage] = useState<number>(1);
   const [tags, setTags] = useState<string[]>([]);
   const [list, setList] = useState<ArticleList[]>([]);
@@ -56,6 +52,11 @@ const ArticleList: React.FC = () => {
   React.useEffect(() => {
     getArticleList();
     getTagsList();
+
+    return () => {
+      setList([]);
+      setPage(1);
+    };
   }, []);
 
   // 获取视窗宽度，改变list itemLayout
@@ -81,13 +82,12 @@ const ArticleList: React.FC = () => {
           if (prevList.length >= res.data.total) {
             setIsMore(false);
           } else {
-            setPage((prevPage) => prevPage + 1);
+            setPage(page + 1);
           }
-          return [...prevList, ...res.data.data];
+          return uniqBy([...prevList, ...res.data.data], 'id');
         });
-        setDataSource(res.data);
 
-        setIsMore(res.data.total !== 0);
+        setIsMore(res.data.data.length !== 0);
       }
     } catch (error) {
       message.error('获取文章列表失败');
@@ -124,7 +124,9 @@ const ArticleList: React.FC = () => {
         hasMore={list.length % 5 === 0 && isMore}
         loader={
           <Card>
-            <Skeleton active />
+            {[...Array(5)].map((_, index) => (
+              <Skeleton active key={index} />
+            ))}
           </Card>
         }
         endMessage={<Divider plain>人生若只如初见，何事秋风悲画扇~ 🥱</Divider>}
@@ -148,6 +150,7 @@ const ArticleList: React.FC = () => {
           renderItem={(item) => (
             <List.Item
               key={item.title}
+              style={{ paddingBottom: 50 }}
               actions={[
                 <Link>
                   <IconText icon={LikeOutlined} text={item.read_count} key="list-vertical-like-o" />
@@ -174,7 +177,7 @@ const ArticleList: React.FC = () => {
               <List.Item.Meta
                 // avatar={<Avatar src={item.avatar} />}
                 title={
-                  <Link href={`/article/${item.id}`} target="__blank" style={{ fontSize: 16 }}>
+                  <Link href={`/article/${item.id}`} style={{ fontSize: 16 }}>
                     {item.title}
                   </Link>
                 }
@@ -197,7 +200,7 @@ const ArticleList: React.FC = () => {
                 ))}
               </Space>
 
-              <Link href={`/article/${item.id}`} target="__blank">
+              <Link href={`/article/${item.id}`}>
                 <Typography.Paragraph className="post-title">{item.content}</Typography.Paragraph>
               </Link>
 
