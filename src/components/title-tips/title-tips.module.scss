@@ -1,5 +1,5 @@
 %text-gradation {
-    background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+    background-image: linear-gradient(to right, #dfa9b9 6%, var(--primary-color));
     -webkit-background-clip: text;
     color: transparent;
 }
@@ -16,8 +16,8 @@
 
     .header {
         box-sizing: border-box;
-        -webkit-backdrop-filter: saturate(110%) blur(1rem);
-        backdrop-filter: saturate(110%) blur(1rem);
+        // -webkit-backdrop-filter: saturate(110%) blur(1rem);
+        // backdrop-filter: saturate(110%) blur(1rem);
         text-align: center;
         min-width: 50%;
         height: 30%;
@@ -40,7 +40,7 @@
             display: inline-block;
             font-size: 3.2rem;
             overflow: hidden;
-            border-right: .15em solid black;
+            border-right: .15em solid var(--primary-color);
             white-space: nowrap;
             letter-spacing: .15em;
             animation:
@@ -71,7 +71,7 @@
         }
 
         50% {
-            border-color: black
+            border-color: var(--primary-color);
         }
     }
 

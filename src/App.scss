@@ -17,6 +17,11 @@ html {
   overflow-x: hidden;
 }
 
+body,
+html {
+  scroll-behavior: smooth;
+}
+
 @font-face {
   font-family: 'fira-code';
   src: url(./static/fonts/FiraCode-Regular.ttf);
