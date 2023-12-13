@@ -53,5 +53,14 @@ html {
 
 .ant-card {
   @include bgFilter();
+}
 
+// byteMd style
+.medium-zoom--opened .medium-zoom-overlay {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+  z-index: 99;
+}
+
+.medium-zoom-image--opened {
+  z-index: 99;
 }
