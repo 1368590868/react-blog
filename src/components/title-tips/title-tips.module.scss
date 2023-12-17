@@ -1,8 +1,9 @@
 %text-gradation {
-    background-image: linear-gradient(to right, #dfa9b9 6%, var(--primary-color));
+    background-image: linear-gradient(to right, #dfa9b9 6%, var(--ant-color-primary));
     -webkit-background-clip: text;
     color: transparent;
 }
+
 
 
 .title-wrap {
@@ -40,7 +41,7 @@
             display: inline-block;
             font-size: 3.2rem;
             overflow: hidden;
-            border-right: .15em solid var(--primary-color);
+            border-right: .15em solid var(--ant-color-primary);
             white-space: nowrap;
             letter-spacing: .15em;
             animation:
@@ -71,7 +72,7 @@
         }
 
         50% {
-            border-color: var(--primary-color);
+            border-color: var(--ant-color-primary);
         }
     }
 

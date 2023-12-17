@@ -12,12 +12,9 @@ const TitleTips: React.FC = () => {
   }, []);
   // Axios.getArticle().then(res => { console.log(res) })
   return (
-    <section className={Style['title-wrap']}>
+    <section className={`${Style['title-wrap']} css-var-r0`}>
       <div className={Style.header}>
-        <div className={Style.title}>
-          {/* <BugTwoTone /> */}
-          Taric Blog
-        </div>
+        <div className={Style.title}>Taric Blog</div>
         {poem && (
           <div className={Style.typewriter}>
             <h1>{poem}</h1>
