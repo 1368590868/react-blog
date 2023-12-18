@@ -6,18 +6,18 @@ import { useForm } from 'antd/es/form/Form';
 
 const layout = {
   labelCol: { span: 4 },
-  wrapperCol: { span: 20 },
+  wrapperCol: { span: 20 }
 };
 
 const validateMessages = {
   required: '${label}是必填哟!',
   types: {
     email: '${label}填写错误!',
-    number: '${label} is not a valid number!',
+    number: '${label} is not a valid number!'
   },
   number: {
-    range: '${label} must be between ${min} and ${max}',
-  },
+    range: '${label} must be between ${min} and ${max}'
+  }
 };
 
 interface Props {
@@ -48,7 +48,7 @@ const CommentForm: React.FC<Props> = (props) => {
       }
       const res = await CommentService[!!isCommentId ? 'addReply' : 'addComment'](
         values,
-        !isCommentId ? id : isCommentId,
+        !isCommentId ? id : isCommentId
       );
       if (res.code === 200) {
         const { content, ...infoList } = values;
@@ -59,7 +59,7 @@ const CommentForm: React.FC<Props> = (props) => {
         closeReply && closeReply();
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }

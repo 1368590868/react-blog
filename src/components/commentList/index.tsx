@@ -24,7 +24,7 @@ const CommentList: React.FC = () => {
         setDataSrouce(res.data);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -32,7 +32,7 @@ const CommentList: React.FC = () => {
 
   useEffect(() => {
     if (!visible) {
-      console.log(closeReply);
+      console.error(closeReply);
       getCommentList();
     }
   }, [visible]);
@@ -98,7 +98,7 @@ const CommentList: React.FC = () => {
             actions={[
               <Button type="link" onClick={() => onReply(item)}>
                 回复
-              </Button>,
+              </Button>
             ]}
           >
             <List.Item.Meta

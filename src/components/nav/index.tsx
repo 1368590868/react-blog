@@ -10,6 +10,8 @@ const getAssetsFile = (url: string) => {
   return new URL(`../../assets/${url}`, import.meta.url).href;
 };
 
+const defaultTheme = JSON.parse(localStorage.getItem('theme') ?? '{}');
+
 const Nav: React.FC = () => {
   const [current, setCurrent] = useState('article');
 
@@ -43,6 +45,10 @@ const Nav: React.FC = () => {
   ];
   const theme = useContext<any>(ThemeContext);
 
+  React.useEffect(() => {
+    settingItems.find((x) => x.key === defaultTheme.key)?.onClick();
+  }, [defaultTheme]);
+
   const settingItems = [
     {
       key: '1',
@@ -54,6 +60,7 @@ const Nav: React.FC = () => {
         );
 
         theme.setThemeConfig(initThemeConfig);
+        localStorage.setItem('theme', JSON.stringify({ key: '1', ...initThemeConfig }));
       }
     },
     {
@@ -65,8 +72,7 @@ const Nav: React.FC = () => {
           `url(https://cdn.irlin.cn/blog/bg1.webp)`
         );
 
-        theme.setThemeConfig({
-          ...initThemeConfig,
+        const themes = {
           token: {
             colorPrimary: '#74b4da',
             colorInfo: '#74b4da',
@@ -84,7 +90,12 @@ const Nav: React.FC = () => {
               algorithm: true
             }
           }
+        };
+
+        theme.setThemeConfig({
+          ...themes
         });
+        localStorage.setItem('theme', JSON.stringify({ key: '2', ...themes }));
       }
     },
     {
@@ -95,8 +106,7 @@ const Nav: React.FC = () => {
           `--background-image`,
           `url(https://cdn.irlin.cn/2023-10-07_17-39-05_greenbg.webp)`
         );
-
-        theme.setThemeConfig({
+        const themes = {
           token: {
             colorPrimary: '#00b96b',
             colorInfo: '#00b96b',
@@ -113,7 +123,10 @@ const Nav: React.FC = () => {
               algorithm: true
             }
           }
-        });
+        };
+        theme.setThemeConfig(themes);
+
+        localStorage.setItem('theme', JSON.stringify({ key: '3', ...themes }));
       }
     }
   ];
@@ -129,7 +142,7 @@ const Nav: React.FC = () => {
         items={items}
       />
       <div className={Styles['setting']}>
-        <Radio.Group defaultValue="1" buttonStyle="solid">
+        <Radio.Group defaultValue={defaultTheme.key ?? '1'} buttonStyle="solid">
           {settingItems.map((item) => {
             return (
               <Radio.Button value={item.key} key={item.key} onClick={item.onClick}>
