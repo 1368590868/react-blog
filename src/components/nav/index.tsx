@@ -39,7 +39,7 @@ const Nav: React.FC = () => {
       label: '添加友链',
       key: 'callMe',
       onClick: () => {
-        // window.open('https://vue.irlin.cn', '_blank');
+        history('/friend-link');
       }
     }
   ];

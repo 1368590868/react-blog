@@ -11,6 +11,9 @@ import zhCN from 'antd/lib/locale/zh_CN';
 const Home = React.lazy(() => import(/* webpackChunkName: 'Home' */ './page/home'));
 const Article = React.lazy(() => import(/* webpackChunkName: 'Article' */ './page/article'));
 const Footer = React.lazy(() => import(/* webpackChunkName: 'Footer' */ './components/footer'));
+const FriendLink = React.lazy(
+  () => import(/* webpackChunkName: 'FriendLink' */ './page/friend-link')
+);
 
 export const ThemeContext = createContext({});
 export const initThemeConfig = {
@@ -52,6 +55,10 @@ function App() {
     {
       path: '/article/:id',
       component: Article
+    },
+    {
+      path: '/friend-link',
+      component: FriendLink
     },
     {
       path: '*',

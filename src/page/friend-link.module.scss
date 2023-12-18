@@ -1,0 +1,13 @@
+.link-wrap {
+    min-height: calc(100vh - 18rem);
+    width: 90vw;
+    margin: 0 auto;
+
+    padding-top: 2rem;
+
+    .link {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
