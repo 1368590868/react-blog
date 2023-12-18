@@ -70,8 +70,8 @@ const SideBar: React.FC = () => {
       },
       {
         root: null,
-        threshold: 1.0,
-      },
+        threshold: 1.0
+      }
     );
 
     if (luckyBoxRef.current) {
@@ -103,12 +103,12 @@ const SideBar: React.FC = () => {
           ,
           <Link to={'https://github.com/1368590868'} target="__blank">
             <GithubFilled key="github" />
-          </Link>,
+          </Link>
         ]}
       >
         <Meta
           title="个人介绍"
-          description="我是一个前端开发工程师，喜欢研究新技术，喜欢分享，喜欢开源，喜欢折腾，喜欢看书，喜欢旅游，喜欢美食，喜欢运动，喜欢音乐，喜欢电影，喜欢动漫，喜欢游戏，喜欢摄影，喜欢生活。"
+          description="好记性当然不如烂笔头，这里是我的个人空间，记录一些学习笔记，生活感悟。"
         />
       </Card>
       <Card
@@ -145,7 +145,7 @@ const SideBar: React.FC = () => {
               href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=50024102500401"
               style={{
                 display: 'inline-block',
-                textDecoration: 'none',
+                textDecoration: 'none'
               }}
             >
               50024102500401号

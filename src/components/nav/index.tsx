@@ -3,7 +3,7 @@ import { Dropdown, MenuProps, Radio } from 'antd';
 import { Menu } from 'antd';
 import Styles from './nav.module.scss';
 import { SettingTwoTone } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ThemeContext, initThemeConfig } from '../../App';
 
 const getAssetsFile = (url: string) => {
@@ -13,31 +13,32 @@ const getAssetsFile = (url: string) => {
 const defaultTheme = JSON.parse(localStorage.getItem('theme') ?? '{}');
 
 const Nav: React.FC = () => {
-  const [current, setCurrent] = useState('article');
+  const [current, setCurrent] = useState('/article');
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
   };
 
   const history = useNavigate();
+  const location = useLocation();
   const items: MenuProps['items'] = [
     {
       label: '文章',
-      key: 'article',
+      key: '/article',
       onClick: () => {
         history('/');
       }
     },
     {
       label: 'Nuxt Blog',
-      key: 'app',
+      key: '/app',
       onClick: () => {
         window.open('https://irlin.cn', '_blank');
       }
     },
     {
       label: '添加友链',
-      key: 'callMe',
+      key: '/friend-link',
       onClick: () => {
         history('/friend-link');
       }
@@ -48,6 +49,10 @@ const Nav: React.FC = () => {
   React.useEffect(() => {
     settingItems.find((x) => x.key === defaultTheme.key)?.onClick();
   }, [defaultTheme]);
+
+  React.useEffect(() => {
+    setCurrent(location.pathname);
+  }, []);
 
   const settingItems = [
     {
