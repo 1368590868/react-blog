@@ -1,4 +1,4 @@
-import { Suspense, createContext } from 'react';
+import { Suspense, createContext, useEffect } from 'react';
 import './App.scss';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Nav from './components/nav';
@@ -67,6 +67,15 @@ function App() {
   ];
 
   const [themeConfig, setThemeConfig] = React.useState(initThemeConfig);
+  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <ConfigProvider
@@ -81,15 +90,16 @@ function App() {
     >
       <BrowserRouter>
         <Suspense fallback={<FullLoading />}>
-          <ThemeContext.Provider value={{ ...themeConfig, setThemeConfig }}>
+          <ThemeContext.Provider value={{ ...themeConfig, setThemeConfig, windowWidth }}>
             <Nav />
+            <Routes>
+              {routers.map((route) => (
+                <Route key={route.path} path={route.path} element={<route.component />} />
+              ))}
+            </Routes>
+            <Footer />
           </ThemeContext.Provider>
-          <Routes>
-            {routers.map((route) => (
-              <Route key={route.path} path={route.path} element={<route.component />} />
-            ))}
-          </Routes>
-          <Footer />
+
           <FloatButton.BackTop type="primary" />
         </Suspense>
       </BrowserRouter>

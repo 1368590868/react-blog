@@ -1,5 +1,5 @@
 import { Image, Card, List, Space, message, Typography, Tag, Skeleton, Divider } from 'antd';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Style from './article-list.module.scss';
 import { LikeOutlined, MessageOutlined } from '@ant-design/icons';
 import { ArticleList, ArticleParams, Axios, PAGENATION, TagsService } from '../../http/api';
@@ -7,6 +7,7 @@ import Link from 'antd/es/typography/Link';
 import { CardTabListType } from 'antd/es/card';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { uniqBy } from 'lodash';
+import { ThemeContext } from '../../App';
 
 const ArticleList: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -33,11 +34,11 @@ const ArticleList: React.FC = () => {
       if (res.code === 200) {
         const tagTabs: CardTabListType[] = res.data.map((item) => ({
           key: item.id ?? '',
-          tab: item.name ?? '',
+          tab: item.name ?? ''
         }));
         tagTabs.splice(0, 0, {
           key: 'all',
-          tab: '全部',
+          tab: '全部'
         });
         setTagsList(tagTabs);
         setActiveTabKey(tagTabs[0].key);
@@ -59,19 +60,7 @@ const ArticleList: React.FC = () => {
     };
   }, []);
 
-  // 获取视窗宽度，改变list itemLayout
-  const [itemLayout, setItemLayout] = useState<'vertical' | 'horizontal'>('vertical');
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 800) {
-        setItemLayout('vertical');
-      } else {
-        setItemLayout('horizontal');
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const theme = useContext<any>(ThemeContext);
 
   const getArticleList = async (data: ArticleParams = { page, pageSize: 5, tags }) => {
     setLoading(true);
@@ -161,16 +150,19 @@ const ArticleList: React.FC = () => {
                     text={item.comments}
                     key="list-vertical-message"
                   />
-                </Link>,
+                </Link>
               ]}
               extra={
-                itemLayout === 'horizontal' &&
+                theme.windowWidth > 800 &&
                 item.cover_image && (
-                  <Image
-                    src={item.cover_image}
-                    alt={item.cover_image}
-                    style={{ maxHeight: 200, minWidth: 80 }}
-                  />
+                  <>
+                    {theme.windowWidth}
+                    <Image
+                      src={item.cover_image}
+                      alt={item.cover_image}
+                      style={{ maxHeight: 200, minWidth: 80 }}
+                    />
+                  </>
                 )
               }
             >
@@ -204,7 +196,7 @@ const ArticleList: React.FC = () => {
                 <Typography.Paragraph className="post-title">{item.content}</Typography.Paragraph>
               </Link>
 
-              {itemLayout === 'vertical' && item.cover_image && (
+              {theme.windowWidth <= 800 && item.cover_image && (
                 <Image
                   src={item.cover_image}
                   alt={item.cover_image}

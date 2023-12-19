@@ -2,13 +2,13 @@ import React, { useContext, useState } from 'react';
 import { Dropdown, MenuProps, Radio } from 'antd';
 import { Menu } from 'antd';
 import Styles from './nav.module.scss';
-import { SettingTwoTone } from '@ant-design/icons';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ThemeContext, initThemeConfig } from '../../App';
+import { MenuOutlined } from '@ant-design/icons';
 
-const getAssetsFile = (url: string) => {
-  return new URL(`../../assets/${url}`, import.meta.url).href;
-};
+// const getAssetsFile = (url: string) => {
+//   return new URL(`../../assets/${url}`, import.meta.url).href;
+// };
 
 const defaultTheme = JSON.parse(localStorage.getItem('theme') ?? '{}');
 
@@ -20,13 +20,12 @@ const Nav: React.FC = () => {
   };
 
   const history = useNavigate();
-  const location = useLocation();
   const items: MenuProps['items'] = [
     {
       label: '文章',
       key: '/article',
       onClick: () => {
-        history('/');
+        history('/article');
       }
     },
     {
@@ -45,14 +44,9 @@ const Nav: React.FC = () => {
     }
   ];
   const theme = useContext<any>(ThemeContext);
-
   React.useEffect(() => {
     settingItems.find((x) => x.key === defaultTheme.key)?.onClick();
   }, [defaultTheme]);
-
-  React.useEffect(() => {
-    setCurrent(location.pathname);
-  }, []);
 
   const settingItems = [
     {
@@ -138,14 +132,21 @@ const Nav: React.FC = () => {
 
   return (
     <header className={Styles['navbar']}>
-      <div className={Styles['logo']}></div>
-      <Menu
-        onClick={onClick}
-        style={{ flex: 'auto', minWidth: 0 }}
-        selectedKeys={[current]}
-        mode="horizontal"
-        items={items}
-      />
+      {theme.windowWidth > 800 ? (
+        <Menu
+          onClick={onClick}
+          style={{ flex: 'auto', minWidth: 0 }}
+          selectedKeys={[current]}
+          mode="horizontal"
+          items={items}
+        />
+      ) : (
+        <Dropdown menu={{ items }} trigger={['click']}>
+          <a onClick={(e) => e.preventDefault()}>
+            <MenuOutlined />
+          </a>
+        </Dropdown>
+      )}
       <div className={Styles['setting']}>
         <Radio.Group defaultValue={defaultTheme.key ?? '1'} buttonStyle="solid">
           {settingItems.map((item) => {

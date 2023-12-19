@@ -1,7 +1,7 @@
 .navbar {
-   padding: 0 3rem;
+   padding: 0 2rem;
    display: flex;
-   justify-content: center;
+   justify-content: space-between;
    align-items: center;
    height: 6rem;
    background: hsla(0, 0%, 100%, .8);
@@ -18,13 +18,5 @@
 
    :global(.ant-menu-root) {
       background: transparent;
-   }
-
-   .logo {
-      flex: 0 0 10rem;
-   }
-
-   .setting {
-      flex: 0 0 40rem;
    }
 }
