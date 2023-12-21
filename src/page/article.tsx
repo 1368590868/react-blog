@@ -23,6 +23,7 @@ const Article = () => {
 
       const res = await Axios.getArticleById(params.id);
       setArticle(res.data);
+      document.title = res.data.title;
     } catch (error) {
       message.error('获取文章失败');
     } finally {
