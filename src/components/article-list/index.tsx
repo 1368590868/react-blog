@@ -60,8 +60,6 @@ const ArticleList: React.FC = () => {
     };
   }, []);
 
-  const theme = useContext<any>(ThemeContext);
-
   const getArticleList = async (data: ArticleParams = { page, pageSize: 5, tags }) => {
     setLoading(true);
     try {
@@ -99,6 +97,8 @@ const ArticleList: React.FC = () => {
       {text}
     </Space>
   );
+
+  const theme = useContext<any>(ThemeContext);
   return (
     <Card
       className={Style['article-list']}
@@ -110,10 +110,11 @@ const ArticleList: React.FC = () => {
       <InfiniteScroll
         dataLength={list.length}
         next={loadMoreData}
+        scrollThreshold={theme.windowWidth < 800 ? 0.6 : 0.9}
         hasMore={list.length % 5 === 0 && isMore}
         loader={
           <Card>
-            {[...Array(5)].map((_, index) => (
+            {[...Array(1)].map((_, index) => (
               <Skeleton active key={index} />
             ))}
           </Card>
@@ -124,17 +125,6 @@ const ArticleList: React.FC = () => {
           loading={loading}
           itemLayout={'vertical'}
           size="large"
-          // pagination={{
-          //   onChange: async (page) => {
-          //     await getArticleList({
-          //       ...PAGENATION,
-          //       page,
-          //       tags: activeTabKey === 'all' ? [] : [activeTabKey],
-          //     });
-          //   },
-          //   total: dataSource.total,
-          //   ...PAGENATION,
-          // }}
           dataSource={list}
           renderItem={(item) => (
             <List.Item
@@ -156,7 +146,6 @@ const ArticleList: React.FC = () => {
                 theme.windowWidth > 800 &&
                 item.cover_image && (
                   <>
-                    {theme.windowWidth}
                     <Image
                       src={item.cover_image}
                       alt={item.cover_image}
