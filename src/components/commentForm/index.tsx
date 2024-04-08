@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Select, message } from 'antd';
+import { Button, Col, Flex, Form, Input, Row, Select, message } from 'antd';
 import { CommentList, CommentService } from '../../http/api';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
@@ -114,10 +114,12 @@ const CommentForm: React.FC<Props> = (props) => {
           placeholder="请输入友善评论~"
         />
       </Form.Item>
-      <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 11 }}>
-        <Button type="primary" htmlType="submit" disabled={loading} loading={loading}>
-          发表看法
-        </Button>
+      <Form.Item wrapperCol={{ ...layout.wrapperCol }} label=" " colon={false}>
+        <Flex align="center" justify="center">
+          <Button type="primary" htmlType="submit" disabled={loading} loading={loading}>
+            发表看法
+          </Button>
+        </Flex>
       </Form.Item>
     </Form>
   );

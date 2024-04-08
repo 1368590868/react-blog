@@ -5,6 +5,7 @@ import Styles from './nav.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { ThemeContext, initThemeConfig } from '../../App';
 import { MenuOutlined } from '@ant-design/icons';
+import useResize from '../../hooks/useResize';
 
 // const getAssetsFile = (url: string) => {
 //   return new URL(`../../assets/${url}`, import.meta.url).href;
@@ -14,6 +15,7 @@ const defaultTheme = JSON.parse(localStorage.getItem('theme') ?? '{}');
 
 const Nav: React.FC = () => {
   const [current, setCurrent] = useState('/article');
+  const { contentRect } = useResize();
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
@@ -132,7 +134,7 @@ const Nav: React.FC = () => {
 
   return (
     <header className={Styles['navbar']}>
-      {theme.windowWidth > 800 ? (
+      {contentRect.width > 800 ? (
         <Menu
           onClick={onClick}
           style={{ flex: 'auto', minWidth: 0 }}

@@ -67,15 +67,6 @@ function App() {
   ];
 
   const [themeConfig, setThemeConfig] = React.useState(initThemeConfig);
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <ConfigProvider
@@ -90,7 +81,7 @@ function App() {
     >
       <BrowserRouter>
         <Suspense fallback={<FullLoading />}>
-          <ThemeContext.Provider value={{ ...themeConfig, setThemeConfig, windowWidth }}>
+          <ThemeContext.Provider value={{ ...themeConfig, setThemeConfig }}>
             <Nav />
             <Routes>
               {routers.map((route) => (

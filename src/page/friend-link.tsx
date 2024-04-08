@@ -1,4 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react';
+import useResize from '../hooks/useResize';
 import Styles from './friend-link.module.scss';
 import { Avatar, Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
@@ -157,21 +158,10 @@ const linkConfig = [
 
 const FriendLink: FunctionComponent = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { contentRect } = useResize();
   useEffect(() => {
-    // 定义一个回调函数来更新窗口宽度
-    const handleResize = () => {
-      console.log(window.innerWidth);
-      setWindowWidth(window.innerWidth);
-    };
-
-    // 添加窗口大小变化的事件监听器
-    window.addEventListener('resize', handleResize);
-
-    // 在组件卸载时清除事件监听器
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    setWindowWidth(contentRect?.width ?? 0);
+  }, [contentRect?.width]);
   return (
     <section className={Styles['link-wrap']}>
       <Card title="友链">

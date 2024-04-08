@@ -7,7 +7,7 @@ import Link from 'antd/es/typography/Link';
 import { CardTabListType } from 'antd/es/card';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { uniqBy } from 'lodash';
-import { ThemeContext } from '../../App';
+import useResize from '../../hooks/useResize';
 
 const ArticleList: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -17,6 +17,7 @@ const ArticleList: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [tags, setTags] = useState<string[]>([]);
   const [list, setList] = useState<ArticleList[]>([]);
+  const { contentRect } = useResize();
 
   const onTabChange = (key: string) => {
     setActiveTabKey(key);
@@ -98,7 +99,6 @@ const ArticleList: React.FC = () => {
     </Space>
   );
 
-  const theme = useContext<any>(ThemeContext);
   return (
     <Card
       className={Style['article-list']}
@@ -110,7 +110,7 @@ const ArticleList: React.FC = () => {
       <InfiniteScroll
         dataLength={list.length}
         next={loadMoreData}
-        scrollThreshold={theme.windowWidth < 800 ? 0.6 : 0.9}
+        scrollThreshold={contentRect.width < 800 ? 0.6 : 0.9}
         hasMore={list.length % 5 === 0 && isMore}
         loader={
           <Card>
@@ -143,7 +143,7 @@ const ArticleList: React.FC = () => {
                 </Link>
               ]}
               extra={
-                theme.windowWidth > 800 &&
+                contentRect.width > 800 &&
                 item.cover_image && (
                   <>
                     <Image
@@ -185,7 +185,7 @@ const ArticleList: React.FC = () => {
                 <Typography.Paragraph className="post-title">{item.content}</Typography.Paragraph>
               </Link>
 
-              {theme.windowWidth <= 800 && item.cover_image && (
+              {contentRect.width <= 800 && item.cover_image && (
                 <Image
                   src={item.cover_image}
                   alt={item.cover_image}
