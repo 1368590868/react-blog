@@ -1,4 +1,4 @@
-import { Suspense, createContext, useEffect } from 'react';
+import { Suspense, createContext } from 'react';
 import './App.scss';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Nav from './components/nav';
