@@ -7,6 +7,7 @@ import React from 'react';
 import { FloatButton } from 'antd';
 import { ConfigProvider, theme } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
+import PhotoPage from './page/photo';
 // Lazy load Component
 const Home = React.lazy(() => import(/* webpackChunkName: 'Home' */ './page/home'));
 const Article = React.lazy(() => import(/* webpackChunkName: 'Article' */ './page/article'));
@@ -59,6 +60,10 @@ function App() {
     {
       path: '/friend-link',
       component: FriendLink
+    },
+    {
+      path:'/photo',
+      component: PhotoPage
     },
     {
       path: '*',

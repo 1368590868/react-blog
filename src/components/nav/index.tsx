@@ -31,6 +31,13 @@ const Nav: React.FC = () => {
       }
     },
     {
+      label: '相册',
+      key: '/photo',
+      onClick: () => {
+        history('/photo');
+      }
+    },
+    {
       label: 'Nuxt Blog',
       key: '/app',
       onClick: () => {
