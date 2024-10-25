@@ -22,6 +22,10 @@ html {
   scroll-behavior: smooth;
 }
 
+del{
+  text-decoration: none;
+}
+
 @font-face {
   font-family: 'fira-code';
   src: url(https://cdn.irlin.cn/blog/FiraCode-Regular.ttf);
@@ -51,8 +55,13 @@ html {
 }
 
 
+
 .ant-card {
   @include bgFilter();
+}
+
+.ant-card-bordered{
+  border:none;
 }
 
 // byteMd style
