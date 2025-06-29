@@ -15,6 +15,7 @@ import 'github-markdown-css/github-markdown-light.css';
 import Style from './md-view.module.scss';
 // Plugins
 import { roughNotationPlugin, pluginCopyCode } from 'plugin-bytemd-rough';
+import imageLazyLoad from './plugin/img-lazy';
 
 interface Props {
   value?: string;
@@ -29,7 +30,11 @@ const plugins = [
   mermaid({ locale: mermaidLocale }),
   mediumZoom(),
   roughNotationPlugin(),
-  pluginCopyCode()
+  pluginCopyCode(),
+  imageLazyLoad({
+    useNativeLazy: false,
+    placeholderSrc: '/loading.gif',
+  })
 ];
 
 const MdViewer: FC<Props> = ({ value = '' }) => (

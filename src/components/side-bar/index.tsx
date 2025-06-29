@@ -95,7 +95,7 @@ const SideBar: React.FC = () => {
         }
         actions={[
           <Popover
-            overlayInnerStyle={{ padding: 0 }}
+            styles={{ body: { padding: 0 } }}
             content={<QRCode value={'irlin.cn'} bordered={false} />}
           >
             <WechatFilled key={'wechat'} />
@@ -117,7 +117,7 @@ const SideBar: React.FC = () => {
         style={{ marginTop: '3rem' }}
         ref={luckyBoxRef}
       >
-        <Descriptions column={1} labelStyle={{ width: 60 }}>
+        <Descriptions column={1} styles={{ label: { width: 60 } }} >
           <Descriptions.Item label="运势">
             <Rate disabled value={num} count={6} />
           </Descriptions.Item>
@@ -133,7 +133,7 @@ const SideBar: React.FC = () => {
         style={{ marginTop: '3rem' }}
         ref={luckyBoxRef}
       >
-        <Descriptions column={1} labelStyle={{ width: 100 }}>
+        <Descriptions column={1} styles={{ label: { width: 100 } }}>
           <Descriptions.Item label="备案号">
             <a href="https://beian.miit.gov.cn" target="_blank">
               渝ICP备2023013929号
